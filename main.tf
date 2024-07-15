@@ -5,13 +5,6 @@ terraform {
       version = "~> 0.87"
     }
   }
-  backend "s3" {
-    bucket         = "mg-tf-state-backend"
-    key            = "state/terraform.tfstate"
-    region         = "us-east-2"
-    encrypt        = true
-    dynamodb_table = "my-terraform-lockdb"
-  }
 }
 
 provider "snowflake" {
