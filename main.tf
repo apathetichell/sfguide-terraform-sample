@@ -12,27 +12,27 @@ provider "snowflake" {
   private_key_path ="~/.ssh-snowflake/snowflake_tf_snow_key.p8"
 }
 
+
 resource "snowflake_database" "db" {
   name = "TF_DEMO"
 }
 
 resource "snowflake_warehouse" "warehouse" {
   name           = "TF_DEMO"
-  warehouse_size = "xsmall"
+  warehouse_size = "medium"
   auto_suspend   = 60
 }
 
 provider "snowflake" {
-  alias = "security_admin"
   role  = "SECURITYADMIN"
+  alias = "security_admin"
+  private_key_path ="~/.ssh-snowflake/snowflake_tf_snow_key.p8"
 }
 
 resource "snowflake_role" "role" {
   provider = snowflake.security_admin
   name     = "TF_DEMO_SVC_ROLE"
 }
-
-
 
 resource "snowflake_grant_privileges_to_account_role" "database_grant" {
   provider          = snowflake.security_admin
